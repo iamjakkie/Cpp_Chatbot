@@ -42,11 +42,59 @@ ChatBot::~ChatBot()
     }
 }
 
-//// STUDENT CODE
-////
+ChatBot::ChatBot(const ChatBot& source){
+    std::cout << "Copied instance: " << &source << " to: " << this << std::endl;
 
-////
-//// EOF STUDENT CODE
+    _chatLogic = source._chatLogic;
+    _rootNode = source._rootNode;
+    _image = new wxBitmap(*source._image);
+}
+
+ChatBot& ChatBot::operator=(const ChatBot& source){
+    std::cout << "Assigned instance: " << &source << " to: " << this << std::endl;
+
+    if (this == &source){
+        return *this;
+    }
+    delete _image;
+    _chatLogic = source._chatLogic;
+    _rootNode = source._rootNode;
+    _image = new wxBitmap(*source._image);
+
+    return *this;
+}
+
+ChatBot::ChatBot(ChatBot&& source){
+    std::cout << "Moved instance: " << &source << " to: " << this << std::endl;
+
+    _chatLogic = source._chatLogic;
+    _rootNode = source._rootNode;
+    _image = source._image;
+    
+    source._chatLogic = nullptr;
+    source._rootNode = nullptr;
+    source._image = NULL;
+}
+
+ChatBot& ChatBot::operator=(ChatBot&& source){
+    std::cout << "Moved (assigned) instance: " << &source << " to: " << this << std::endl;
+
+    if(this == &source){
+        return *this;
+    }
+    delete _image;
+    _chatLogic = source._chatLogic;
+    _rootNode = source._rootNode;
+    _image = source._image;
+    
+    source._chatLogic = nullptr;
+    source._rootNode = nullptr;
+    source._image = NULL;
+
+    return *this;
+
+}
+
 
 void ChatBot::ReceiveMessageFromUser(std::string message)
 {
