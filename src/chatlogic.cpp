@@ -162,9 +162,6 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
         return;
     }
 
-    //// STUDENT CODE
-    ////
-
     // identify root node
     GraphNode *rootNode = nullptr;
     for (auto it = std::begin(_nodes); it != std::end(_nodes); ++it)
@@ -189,6 +186,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
     // SetChatbotHandle(&chatBot);
     chatBot.SetChatLogicHandle(this);
     chatBot.SetRootNode(rootNode);
+    _chatBot = &chatBot;
     rootNode->MoveChatbotHere(std::move(chatBot));
 }
 
